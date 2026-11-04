@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { validateProduct } from "../middlewares/validate-product.js";
 import {
     getMenu,
     getProduct,
@@ -10,7 +11,6 @@ const productRouter: Router = Router();
 
 productRouter.get("/menu", getMenu);
 productRouter.get("/menu/:id", getProduct);
-productRouter.post("/menu", createProduct);
-productRouter.put("/menu/:id", updateProductController);
+productRouter.post("/menu", validateProduct, createProduct); productRouter.put("/menu/:id", updateProductController);
 
 export default productRouter;
