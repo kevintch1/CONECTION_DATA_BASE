@@ -1,21 +1,17 @@
+
 {
   "swagger": "2.0",
   "info": {
-    "title": "API de Estudiantes",
-    "description": "Documentación automática generada para el bootcamp",
+    "title": "API de Restaurante",
+    "description": "Documentación automática generada por Kevinchotech",
     "version": "1.0.0"
   },
   "host": "localhost:3000",
   "basePath": "/",
-  "schemes": [
-    "http"
-  ],
+  "schemes": ["http"],
   "paths": {
     "/": {
       "get": {
-        "tags": [
-          "Tests"
-        ],
         "description": "",
         "responses": {
           "200": {
@@ -26,6 +22,8 @@
     },
     "/api/menu": {
       "get": {
+        "tags": ["Products"],
+        "summary": "Obtener todos los productos",
         "description": "",
         "responses": {
           "200": {
@@ -34,6 +32,79 @@
           "500": {
             "description": "Internal Server Error"
           }
+        }
+      },
+      "post": {
+        "tags": ["Products"],
+        "summary": "Crear un producto",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nombre": {"example": "any"},
+                "descripcion": {"example": "any"},
+                "precio": {"example": "any"}
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {"description": "Created"},
+          "500": {"description": "Internal Server Error"}
+        }
+      }
+    },
+    "/api/menu/{id}": {
+      "get": {
+        "tags": ["Products"],
+        "summary": "Obtener producto por ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {"description": "OK"},
+          "404": {"description": "Not Found"},
+          "500": {"description": "Internal Server Error"}
+        }
+      },
+      "put": {
+        "tags": ["Products"],
+        "summary": "Actualizar un producto",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nombre": {"example": "any"},
+                "descripcion": {"example": "any"},
+                "precio": {"example": "any"}
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {"description": "OK"},
+          "404": {"description": "Not Found"},
+          "500": {"description": "Internal Server Error"}
         }
       }
     }
