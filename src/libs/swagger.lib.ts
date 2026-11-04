@@ -2,8 +2,8 @@ import swaggerAutogen from 'swagger-autogen';
 
 const doc = {
     info: {
-        title: 'API de Estudiantes',
-        description: 'Documentación automática generada para el bootcamp',
+        title: 'API de Restaurante',
+        description: 'Documentación automática generada por Kevinchotech',
         version: '1.0.0',
     },
     host: 'localhost:3000',
