@@ -2,8 +2,8 @@
 import express from "express";
 import swaggerRouter from "./routes/swagger.router.js";
 import productRouter from "./routes/product.routes.js";
+import customerRouter from "./routes/customer.routes.js";
 import cors from "cors";
-
 const port = process.env.PORT || 3000;
 
 const app = express();
@@ -14,6 +14,7 @@ app.use(cors());
 
 // Rutas
 app.use("/api/docs", swaggerRouter);
+app.use("/api", customerRouter);
 app.use("/api", productRouter);
 
 // Ruta principal
