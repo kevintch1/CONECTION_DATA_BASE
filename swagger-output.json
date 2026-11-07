@@ -1,4 +1,3 @@
-
 {
   "swagger": "2.0",
   "info": {
@@ -8,7 +7,9 @@
   },
   "host": "localhost:3000",
   "basePath": "/",
-  "schemes": ["http"],
+  "schemes": [
+    "http"
+  ],
   "paths": {
     "/": {
       "get": {
@@ -22,12 +23,34 @@
     },
     "/api/menu": {
       "get": {
-        "tags": ["Products"],
-        "summary": "Obtener todos los productos",
+        "tags": [
+          "Products"
+        ],
+        "summary": "Obtener productos con filtros y paginación",
         "description": "",
+        "parameters": [
+          {
+            "name": "maxPrice",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
           },
           "500": {
             "description": "Internal Server Error"
@@ -35,7 +58,9 @@
         }
       },
       "post": {
-        "tags": ["Products"],
+        "tags": [
+          "Products"
+        ],
         "summary": "Crear un producto",
         "description": "",
         "parameters": [
@@ -45,22 +70,34 @@
             "schema": {
               "type": "object",
               "properties": {
-                "nombre": {"example": "any"},
-                "descripcion": {"example": "any"},
-                "precio": {"example": "any"}
+                "nombre": {
+                  "example": "any"
+                },
+                "descripcion": {
+                  "example": "any"
+                },
+                "precio": {
+                  "example": "any"
+                }
               }
             }
           }
         ],
         "responses": {
-          "201": {"description": "Created"},
-          "500": {"description": "Internal Server Error"}
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
         }
       }
     },
     "/api/menu/{id}": {
       "get": {
-        "tags": ["Products"],
+        "tags": [
+          "Products"
+        ],
         "summary": "Obtener producto por ID",
         "description": "",
         "parameters": [
@@ -72,13 +109,21 @@
           }
         ],
         "responses": {
-          "200": {"description": "OK"},
-          "404": {"description": "Not Found"},
-          "500": {"description": "Internal Server Error"}
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
         }
       },
       "put": {
-        "tags": ["Products"],
+        "tags": [
+          "Products"
+        ],
         "summary": "Actualizar un producto",
         "description": "",
         "parameters": [
@@ -94,17 +139,121 @@
             "schema": {
               "type": "object",
               "properties": {
-                "nombre": {"example": "any"},
-                "descripcion": {"example": "any"},
-                "precio": {"example": "any"}
+                "nombre": {
+                  "example": "any"
+                },
+                "descripcion": {
+                  "example": "any"
+                },
+                "precio": {
+                  "example": "any"
+                }
               }
             }
           }
         ],
         "responses": {
-          "200": {"description": "OK"},
-          "404": {"description": "Not Found"},
-          "500": {"description": "Internal Server Error"}
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/sales": {
+      "get": {
+        "tags": [
+          "Sales"
+        ],
+        "summary": "Obtener todas las ventas con sus clientes",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Sales"
+        ],
+        "summary": "Crear una venta con sus detalles mediante una transacción",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nro_de_compra": {
+                  "example": "any"
+                },
+                "fecha": {
+                  "example": "any"
+                },
+                "id_cliente": {
+                  "example": "any"
+                },
+                "estado": {
+                  "example": "any"
+                },
+                "items": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/sales/{id}": {
+      "get": {
+        "tags": [
+          "Sales"
+        ],
+        "summary": "Obtener una venta por ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
         }
       }
     }

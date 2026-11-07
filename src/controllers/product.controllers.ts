@@ -7,18 +7,53 @@ import {
 } from "../models/product.model.js";
 
 //get por obetner todos los datos
+// Obtener productos con filtro y paginación
 export async function getMenu(req: Request, res: Response) {
     /*#swagger.tags = ['Products']
-      #swagger.summary = 'Obtener todos los productos' */
+      #swagger.summary = 'Obtener productos con filtros y paginación' */
     try {
-        const products = await getAllProducts();
+        const maxPriceQuery = req.query.maxPrice;
+        const pageQuery = req.query.page;
+        const limitQuery = req.query.limit;
+
+        let maxPrice: number | undefined;
+
+        if (maxPriceQuery !== undefined) {
+            if (typeof maxPriceQuery !== "string" || maxPriceQuery.trim() === "") {
+                res.status(400).json({ error: "maxPrice debe ser un número válido" });
+                return;
+            }
+
+            maxPrice = Number(maxPriceQuery);
+
+            if (!Number.isFinite(maxPrice) || maxPrice < 0) {
+                res.status(400).json({ error: "maxPrice debe ser mayor o igual a 0" });
+                return;
+            }
+        }
+
+        const page = pageQuery === undefined ? 1 : Number(pageQuery);
+        const limit = limitQuery === undefined ? 10 : Number(limitQuery);
+
+        if (!Number.isInteger(page) || page < 1) {
+            res.status(400).json({ error: "page debe ser un entero mayor que 0" });
+            return;
+        }
+
+        if (!Number.isInteger(limit) || limit < 1) {
+            res.status(400).json({ error: "limit debe ser un entero mayor que 0" });
+            return;
+        }
+
+        const products = await getAllProducts(maxPrice, page, limit);
+
         res.json(products);
+
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "Error interno del servicio" });
     }
 }
-
 //get obtener por id
 export async function getProduct(req: Request, res: Response) {
     /*#swagger.tags = ['Products']
