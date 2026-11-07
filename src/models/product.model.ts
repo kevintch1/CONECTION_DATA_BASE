@@ -1,8 +1,32 @@
 import pool from "../config/db.js";
 
 //obetener
-export async function getAllProducts() {
-    const result = await pool.query("SELECT * FROM producto");
+// Obtener productos con filtro y paginación
+export async function getAllProducts(
+    maxPrice?: number,
+    page: number = 1,
+    limit: number = 10
+) {
+    let sql = "SELECT * FROM producto";
+    const values: number[] = [];
+
+    if (maxPrice !== undefined) {
+        values.push(maxPrice);
+        sql += ` WHERE precio <= $${values.length}`;
+    }
+
+    const offset = (page - 1) * limit;
+
+    values.push(limit);
+    const limitIndex = values.length;
+
+    values.push(offset);
+    const offsetIndex = values.length;
+
+    sql += ` ORDER BY id LIMIT $${limitIndex} OFFSET $${offsetIndex}`;
+
+    const result = await pool.query(sql, values);
+
     return result.rows;
 }
 
